@@ -9,7 +9,7 @@ import {
     ListView
 } from 'react-native';
 import ItemView from './ItemView';
-import CheckBox from '../../checkbox/CheckBox';
+import CheckBox from '../../component/CheckBox';
 
 let data = [{name: '商品1', num: 1}, {name: '商品2', num: 2}, {name: '商品3', num: 1},
     {name: '商品4', num: 3}, {name: '商品5', num: 1}, {name: '商品6', num: 6}];

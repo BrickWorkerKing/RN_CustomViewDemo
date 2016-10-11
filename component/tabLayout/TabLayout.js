@@ -5,8 +5,7 @@ import React, {Component, PropTypes} from 'react';
 import {
     StyleSheet,
     View,
-    TouchableOpacity,
-    Text
+    TouchableOpacity
 } from 'react-native';
 import TabView from './TabView';
 

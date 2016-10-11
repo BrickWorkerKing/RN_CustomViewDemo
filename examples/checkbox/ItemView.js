@@ -8,7 +8,7 @@ import {
     Text,
     Image
 } from 'react-native';
-import CheckBox from '../../checkbox/CheckBox';
+import CheckBox from '../../component/CheckBox';
 
 export default class ItemView extends Component {
 
