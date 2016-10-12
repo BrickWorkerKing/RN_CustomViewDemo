@@ -14,6 +14,7 @@ import {
 import TabLayout from '../component/tabLayout/TabLayout';
 import CartList from './checkbox/CartList';
 import Dialog from '../component/Dialog';
+import AutoExpandingTextInput from '../component/AutoExpandingTextInput';
 
 const EXIT_APP = 'exitApp';
 let lastBackPressed;
@@ -21,7 +22,7 @@ let lastBackPressed;
 export default class RootView extends Component {
 
     render() {
-        let array = ['CheckBox', 'Dialog', '选项三', '选项四'];
+        let array = ['CheckBox', 'Dialog', 'TextInput', '选项四'];
 
         let Platform = require('Platform');
         let marginTop;
@@ -66,7 +67,11 @@ export default class RootView extends Component {
         return [
             <CartList/>,
             this._renderDialogPage(),
-            <View style={[{backgroundColor: 'white'}, styles.tabContentView]}><Text>页面三</Text></View>,
+            <View style={[{backgroundColor: 'white'}, styles.tabContentView]}>
+                <View>
+                    <AutoExpandingTextInput style={styles.autoInput}/>
+                </View>
+            </View>,
             <View style={[{backgroundColor: 'yellow'}, styles.tabContentView]}><Text>页面四</Text></View>
         ]
     }
@@ -104,7 +109,8 @@ const styles = StyleSheet.create({
     },
     tabContentView: {
         flex: 1,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     btn: {
         borderWidth: 1,
@@ -115,5 +121,10 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         marginTop: 30,
         marginBottom: 20
+    },
+    autoInput: {
+        backgroundColor: 'gray',
+        width: 100,
+        fontSize: 16
     }
 });

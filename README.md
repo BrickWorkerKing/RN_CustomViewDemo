@@ -2,3 +2,5 @@
 
 - Checkbox
 - TabLayout
+- Dialog
+- AutoExpandingTextInput
