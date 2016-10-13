@@ -22,6 +22,7 @@ export default class AutoExpandingTextInput extends Component {
                        multiline={true}
                        value={this.state.text}
                        style={[this.props.style, {height: Math.max(30, this.state.height + 2)}]}
+                       underlineColorAndroid={'gray'}
                        onChange={(event) => this._onChange(event)}/>
         );
     }

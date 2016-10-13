@@ -7,14 +7,17 @@ import {
     BackAndroid,
     Platform,
     ToastAndroid,
+    AsyncStorage,
     View,
     Text,
+    StatusBar,
     TouchableOpacity
 } from 'react-native';
 import TabLayout from '../component/tabLayout/TabLayout';
 import CartList from './checkbox/CartList';
 import Dialog from '../component/Dialog';
 import AutoExpandingTextInput from '../component/AutoExpandingTextInput';
+import DiaryHomeView from './diary/DiaryHomeView';
 
 const EXIT_APP = 'exitApp';
 let lastBackPressed;
@@ -22,7 +25,7 @@ let lastBackPressed;
 export default class RootView extends Component {
 
     render() {
-        let array = ['CheckBox', 'Dialog', 'TextInput', '选项四'];
+        let array = ['CheckBox', 'Dialog', 'TextInput', 'AsyncStorage'];
 
         let Platform = require('Platform');
         let marginTop;
@@ -33,6 +36,14 @@ export default class RootView extends Component {
         }
         return (
             <View style={{flex: 1}}>
+                <StatusBar
+                    animated={true}
+                    barStyle={'default'}
+                    backgroundColor={'green'}
+                    translucent={false}
+                    showHideTransition={'fade'}
+                    networkActivityIndicatorVisible={true}
+                    hidden={false}/>
                 <View style={[styles.titleLayout, {marginTop: marginTop}]}>
                     <Text style={styles.title}>TabLayoutDemo</Text>
                 </View>
@@ -72,7 +83,7 @@ export default class RootView extends Component {
                     <AutoExpandingTextInput style={styles.autoInput}/>
                 </View>
             </View>,
-            <View style={[{backgroundColor: 'yellow'}, styles.tabContentView]}><Text>页面四</Text></View>
+            <DiaryHomeView/>
         ]
     }
 

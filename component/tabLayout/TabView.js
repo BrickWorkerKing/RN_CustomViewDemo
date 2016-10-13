@@ -70,7 +70,7 @@ export default class TabView extends Component {
 
 const styles = StyleSheet.create({
     text: {
-        fontSize: 16
+        fontSize: 14
     },
     textLayout: {
         flex: 1,
