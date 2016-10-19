@@ -10,6 +10,7 @@ export default class AutoExpandingTextInput extends Component {
 
     constructor(props) {
         super(props);
+        console.log('AutoExpandingTextInput constructor');
         this.state = {
             text: '',
             height: 0
@@ -17,6 +18,7 @@ export default class AutoExpandingTextInput extends Component {
     }
 
     render() {
+        console.log('AutoExpandingTextInput render');
         return (
             <TextInput {...this.props}
                        multiline={true}
@@ -25,6 +27,35 @@ export default class AutoExpandingTextInput extends Component {
                        underlineColorAndroid={'gray'}
                        onChange={(event) => this._onChange(event)}/>
         );
+    }
+
+    componentWillMount() {
+        console.log('AutoExpandingTextInput componentWillMount');
+    }
+
+    componentDidMount() {
+        console.log('AutoExpandingTextInput componentDidMount');
+    }
+
+    componentWillReceiveProps() {
+        console.log('AutoExpandingTextInput componentWillReceiveProps');
+    }
+
+    shouldComponentUpdate() {
+        console.log('AutoExpandingTextInput shouldComponentUpdate');
+        return true;
+    }
+
+    componentWillUpdate(){
+        console.log('AutoExpandingTextInput componentWillUpdate');
+    }
+
+    componentDidUpdate() {
+        console.log('AutoExpandingTextInput componentDidUpdate');
+    }
+
+    componentWillUnmount() {
+        console.log('AutoExpandingTextInput componentWillUnmount');
     }
 
     _onChange(event) {

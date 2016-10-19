@@ -5,7 +5,8 @@ import React, {Component, PropTypes} from 'react';
 import {
     StyleSheet,
     View,
-    TouchableOpacity
+    TouchableOpacity,
+    PanResponder
 } from 'react-native';
 import TabView from './TabView';
 
@@ -25,7 +26,7 @@ export default class TabLayout extends Component {
         tabArray: PropTypes.arrayOf(React.PropTypes.string).isRequired,
         selectedColor: PropTypes.string.isRequired,
         tabContentViewArray: PropTypes.arrayOf(React.PropTypes.element).isRequired
-    }
+    };
 
     static get defaultProps() {
         return {
@@ -43,8 +44,50 @@ export default class TabLayout extends Component {
         super(props);
         this.state = {
             selectedItem: 0
-        }
+        };
+        this.watcher = null;
+        this.startX = 0;
+        this.swithTab = 0;
     }
+
+    componentWillMount() {
+        this.watcher = PanResponder.create({
+            onStartShouldSetPanResponder: () => true,
+            onPanResponderGrant: this._onPanResponderGrant,
+            onPanResponderMove: this._onPanResponderMove,
+            onPanResponderEnd: this._onPanResponderEnd
+        });
+    }
+
+    _onPanResponderGrant = (e, gestureState)=> {
+        this.startX = gestureState.x0;
+    };
+
+    _onPanResponderMove = (e, gestureState)=> {
+        let tabLen = this.props.tabContentViewArray.length;
+        if (gestureState.moveX > this.startX) {
+            // 往右滑动, tab后退
+            if (this.state.selectedItem == 0) return; // 第一个tab,无法继续向左滑动
+            if (Math.abs(gestureState.moveX - this.startX)>= winWidth / 4) {
+                // 当滑动距离超过半屏的时候,则认为可以切换屏幕
+                this.swithTab = -1;
+            }
+        } else if (gestureState.moveX < this.startX) {
+            // 往左滑动,tab前进
+            if (this.state.selectedItem == tabLen - 1) return; // 最后一个tab无法继续向右滑动
+            if (Math.abs(gestureState.moveX - this.startX) >= winWidth / 4) {
+                // 当滑动距离超过半屏的时候,则认为可以切换屏幕
+                this.swithTab = 1;
+            }
+        }
+    };
+
+    _onPanResponderEnd = (e, gestureState)=> {
+        this.setState({
+            selectedItem: this.state.selectedItem + this.swithTab
+        });
+        this.swithTab = 0;
+    };
 
     render() {
         return (
@@ -65,8 +108,9 @@ export default class TabLayout extends Component {
                     }
                 </View>
 
-                {this.props.tabContentViewArray[this.state.selectedItem]}
-
+                <View style={{flex: 1}} {...this.watcher.panHandlers}>
+                    {this.props.tabContentViewArray[this.state.selectedItem]}
+                </View>
             </View>
         )
     }
@@ -131,13 +175,14 @@ export default class TabLayout extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    tabLayout: {
-        width: winWidth,
-        flexDirection: 'row',
-        alignItems: 'center'
-    }
-});
+const
+    styles = StyleSheet.create({
+        container: {
+            flex: 1
+        },
+        tabLayout: {
+            width: winWidth,
+            flexDirection: 'row',
+            alignItems: 'center'
+        }
+    });

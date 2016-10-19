@@ -16,8 +16,8 @@ import {
 import TabLayout from '../component/tabLayout/TabLayout';
 import CartList from './checkbox/CartList';
 import Dialog from '../component/Dialog';
-import AutoExpandingTextInput from '../component/AutoExpandingTextInput';
-import DiaryHomeView from './diary/DiaryHomeView';
+import DiaryHomeView from './DiaryHomeView';
+import ShowScrollView from './ShowScrollView';
 
 const EXIT_APP = 'exitApp';
 let lastBackPressed;
@@ -25,7 +25,7 @@ let lastBackPressed;
 export default class RootView extends Component {
 
     render() {
-        let array = ['CheckBox', 'Dialog', 'TextInput', 'AsyncStorage'];
+        let array = ['CheckBox', 'Dialog', 'ScrollView', 'TextInput'];
 
         let Platform = require('Platform');
         let marginTop;
@@ -78,11 +78,7 @@ export default class RootView extends Component {
         return [
             <CartList/>,
             this._renderDialogPage(),
-            <View style={[{backgroundColor: 'white'}, styles.tabContentView]}>
-                <View>
-                    <AutoExpandingTextInput style={styles.autoInput}/>
-                </View>
-            </View>,
+            <ShowScrollView/>,
             <DiaryHomeView/>
         ]
     }
